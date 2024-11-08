@@ -98,6 +98,11 @@ needed for a sufficient test-coverage.
 Currently, only images, txt and pdf file types are supported. This should be extended
 to support a higher range of files.
 
+### PDF files
+It assumes that all PDF files have machine readable text in it. Some
+PDFs can have scanned documents or pictures in it and they need to be 
+OCR'd. The current solution does not account for this.
+
 ### Scaling to new industries
 I have not had time to adapt the app to be able to handle multiple industries. 
 
