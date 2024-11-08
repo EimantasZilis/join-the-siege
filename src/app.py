@@ -19,7 +19,7 @@ def classify_file_route() -> tuple[Response, int]:
     except InvalidFileError as error_msg:
         return jsonify({"error": error_msg}), 400
 
-    text = get_text_from_file(file)
+    text = get_text_from_file(file.filename, file.stream)
     file_class = classify_file(file)
     return jsonify({"file_class": file_class}), 200
 
