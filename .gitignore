@@ -4,4 +4,6 @@ venv
 .vscode
 __pycache__
 *.pyc
+
 sample_data
+src/training_data/datasets/
