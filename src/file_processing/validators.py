@@ -1,7 +1,7 @@
 from pathlib import Path
 from werkzeug.datastructures import FileStorage
 
-from src.file_processing.extensions import SUPPORTED_EXTENSIONS
+from src.constants import SUPPORTED_EXTENSIONS
 
 
 class InvalidFileError(Exception):

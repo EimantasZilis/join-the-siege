@@ -6,7 +6,7 @@ import pytesseract
 from pypdf import PdfReader
 from werkzeug.datastructures import FileStorage
 
-from src.file_processing.extensions import TEXT_FILE_EXTENSIONS, IMAGE_FILE_EXTENSIONS
+from src.constants import TEXT_FILE_EXTENSIONS, IMAGE_FILE_EXTENSIONS
 
 
 class ImageFileReader:
