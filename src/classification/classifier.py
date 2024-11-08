@@ -15,20 +15,20 @@ class DocumentClassifier:
         self.model = model
 
     @classmethod
-    def initialise(cls, model_class: BaseModel) -> DocumentClassifier:
+    def initialise(cls, model_class: BaseModel, model_file=MODEL_FILEPATH) -> DocumentClassifier:
         """Initialises document classifier and trains the model.
 
         The model is cached for speed as a pkl file.
         """
-        if MODEL_FILEPATH.exists():
-            trained_model = load_pkl_file(MODEL_FILEPATH)
+        if model_file.exists():
+            trained_model = load_pkl_file(model_file)
             return cls(trained_model)
 
         training_dataframe = read_and_parse_sample_files()
         model = model_class(training_dataframe)
         model.train()
 
-        save_pkl_file(MODEL_FILEPATH, model)
+        save_pkl_file(model_file, model)
         return cls(model)
 
     def predict(self, text: str) -> str:

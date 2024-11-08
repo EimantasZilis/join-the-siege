@@ -4,7 +4,6 @@ from typing import Optional, BinaryIO
 
 import pytesseract
 from pypdf import PdfReader
-from werkzeug.datastructures import FileStorage
 
 from src.constants import TEXT_FILE_EXTENSIONS, IMAGE_FILE_EXTENSIONS
 

@@ -1,7 +1,11 @@
 from io import BytesIO
+from unittest.mock import patch
 
 import pytest
-from src.app import app, allowed_file
+from src.app import app
+
+
+BASE_FILE = "src.app"
 
 
 @pytest.fixture
@@ -9,20 +13,6 @@ def client():
     app.config["TESTING"] = True
     with app.test_client() as client:
         yield client
-
-
-@pytest.mark.parametrize(
-    "filename, expected",
-    [
-        ("file.pdf", True),
-        ("file.png", True),
-        ("file.jpg", True),
-        ("file.txt", False),
-        ("file", False),
-    ],
-)
-def test_allowed_file(filename, expected):
-    assert allowed_file(filename) == expected
 
 
 def test_no_file_in_request(client):
@@ -38,8 +28,11 @@ def test_no_selected_file(client):
     assert response.status_code == 400
 
 
-def test_success(client, mocker):
-    mocker.patch("src.app.classify_file", return_value="test_class")
+@patch(f"{BASE_FILE}.DOC_CLASSIFICATION")
+@patch(f"{BASE_FILE}.get_text_from_file")
+def test_success(mock_get_text, mock_doc_classification, client):
+    mock_doc_classification.predict.return_value = "test_class"
+    mock_get_text.return_value = "dummy content"
 
     data = {"file": (BytesIO(b"dummy content"), "file.pdf")}
     response = client.post(

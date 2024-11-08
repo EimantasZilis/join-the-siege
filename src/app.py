@@ -18,7 +18,7 @@ def classify_file_route() -> tuple[Response, int]:
     try:
         validate_file(file)
     except InvalidFileError as error_msg:
-        return jsonify({"error": error_msg}), 400
+        return jsonify({"error": error_msg.args[0]}), 400
 
     text = get_text_from_file(file.filename, file.stream)
     classification = DOC_CLASSIFICATION.predict(text)
