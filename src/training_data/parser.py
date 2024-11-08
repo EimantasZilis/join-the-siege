@@ -14,7 +14,8 @@ from src.file_processing.readers import get_text_from_file
 
 
 DATASET_PATH = (
-    SAMPLE_DATASET_PICKLE_DIR / f"dataset_{MAX_TRAINING_DOCS_PER_DOC_TYPE}_docs_per_doctype.pkl"
+    SAMPLE_DATASET_PICKLE_DIR
+    / f"dataset_{MAX_TRAINING_DOCS_PER_DOC_TYPE}_docs_per_doctype.pkl"
 )
 
 
@@ -31,7 +32,7 @@ def read_sample_files() -> dict[str, list[str]]:
 
 def read_doc_type_files(dataset: dict[str, list[str]], doc_type: str) -> None:
     """Populates dataset variable by going through all sample files for a given
-    doc_type. It will only process up to MAX_TRAINING_DOCS_PER_DOC_TYPE number 
+    doc_type. It will only process up to MAX_TRAINING_DOCS_PER_DOC_TYPE number
     of files for a given document type"""
 
     files_processed = 0

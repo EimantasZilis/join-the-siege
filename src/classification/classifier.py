@@ -6,7 +6,7 @@ from src.helpers import load_pkl_file, save_pkl_file
 from src.training_data.parser import read_and_parse_sample_files
 
 
-MODEL_FILE =  f"model_{MAX_TRAINING_DOCS_PER_DOC_TYPE}_docs_per_doctype.pkl"
+MODEL_FILE = f"model_{MAX_TRAINING_DOCS_PER_DOC_TYPE}_docs_per_doctype.pkl"
 MODEL_FILEPATH = SAMPLE_DATASET_PICKLE_DIR / MODEL_FILE
 
 
@@ -23,14 +23,14 @@ class DocumentClassifier:
         if MODEL_FILEPATH.exists():
             trained_model = load_pkl_file(MODEL_FILEPATH)
             return cls(trained_model)
-        
+
         training_dataframe = read_and_parse_sample_files()
         model = model_class(training_dataframe)
         model.train()
 
         save_pkl_file(MODEL_FILEPATH, model)
         return cls(model)
-    
+
     def predict(self, text: str) -> str:
         """Predicts document type based on document text"""
         return self.model.predict(text)

@@ -31,6 +31,7 @@ class KaggleDataset:
         self.output_path = SAMPLE_DATA_PATH / name
 
     def download(self) -> Path:
+        """Downloads Kaggle dataset and moves it to a sample_data folder"""
         print(f"Downloading sample {self.name} dataset")
         raw_datapath = self._download_dataset()
         self._prepare_output_directory()
@@ -38,6 +39,7 @@ class KaggleDataset:
         self._remove_redundant_files(raw_datapath)
 
     def _prepare_output_directory(self) -> None:
+        """Creates and clears output directory"""
         if self.output_path.exists():
             print(
                 f"{self.output_path} already exists. Removing it before the data is (re)downloaded"
@@ -46,9 +48,11 @@ class KaggleDataset:
         self.output_path.mkdir(parents=True)
 
     def _download_dataset(self) -> Path:
+        """Downloads Kaggle dataset"""
         return Path(kagglehub.dataset_download(self.dataset, force_download=False))
 
     def _move_dataset(self, raw_datapath: Path) -> None:
+        """Moves dataset to a sample_data directory"""
         if self.data_path is None:
             data_path = Path(raw_datapath)
         else:
@@ -56,6 +60,7 @@ class KaggleDataset:
         data_path.rename(self.output_path)
 
     def _remove_redundant_files(self, raw_datapath: Path) -> None:
+        """Any leftover files that are not needed in the dataset are removed"""
         if self.data_path is not None:
             shutil.rmtree(raw_datapath)
 
